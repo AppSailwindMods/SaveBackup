@@ -24,7 +24,7 @@ namespace SaveBackup
 
         private ConfigEntry<KeyboardShortcut> quickSaveKey;
         internal ConfigEntry<int> saveBackupCount;
-        internal ConfigEntry<float> backupTimer;
+        internal ConfigEntry<float> autosaveTimer;
         internal ConfigEntry<bool> autoSaveEnabled;
 
         private void Awake()
@@ -36,18 +36,18 @@ namespace SaveBackup
             quickSaveKey = Config.Bind("Hotkeys", "Quick Save", new KeyboardShortcut(KeyCode.F8));
             autoSaveEnabled = Config.Bind("Values", "Enable Autosave", true);
             saveBackupCount = Config.Bind("Values", "Save Backup Count", 3, new ConfigDescription("", new AcceptableValueRange<int>(1, 10)));
-            backupTimer = Config.Bind("Values", "Backup Timer", 30f);
+            autosaveTimer = Config.Bind("Values", "Autosave Timer", 30f, new ConfigDescription("Timer is measured in minutes"));
 
-            if(backupTimer.Value < 0.01f)
+            if(autosaveTimer.Value < 0.01f)
             {
-                backupTimer.Value = 0.01f;
+                autosaveTimer.Value = 0.01f;
             }
 
-            backupTimer.SettingChanged += (_, __) =>
+            autosaveTimer.SettingChanged += (_, __) =>
             {
-                if (backupTimer.Value < 0.01f)
+                if (autosaveTimer.Value < 0.01f)
                 {
-                    backupTimer.Value = 0.01f;
+                    autosaveTimer.Value = 0.01f;
                 }
             };
 

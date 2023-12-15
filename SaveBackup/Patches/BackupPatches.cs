@@ -21,7 +21,7 @@ namespace SaveBackup.Patches
                 if (!GameState.playing && !SaveLoadManager.readyToSave) return;
                 if (Utilities.GamePaused) return;
                 timer += Time.unscaledDeltaTime;
-                if(timer >= SaveBackupMain.instance.backupTimer.Value * 60f)
+                if(timer >= SaveBackupMain.instance.autosaveTimer.Value * 60f)
                 {
                     timer = 0;
                     autosave = true;
