@@ -1,0 +1,2 @@
+if not exist "F:\SteamLibrary\steamapps\common\Sailwind\BepInEx\plugins\SaveTweaks" mkdir "F:\SteamLibrary\steamapps\common\Sailwind\BepInEx\plugins\SaveTweaks"
+del /q "F:\SteamLibrary\steamapps\common\Sailwind\BepInEx\plugins\SaveTweaks\SaveBackup.dll"
