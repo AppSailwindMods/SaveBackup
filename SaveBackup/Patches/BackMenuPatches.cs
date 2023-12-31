@@ -16,6 +16,7 @@ namespace SaveBackup.Patches
             [HarmonyPostfix]
             public static void Postfix(StartMenu __instance)
             {
+                BackupMenuData.saveSlotUILabelText.text = __instance.GetPrivateField<bool>("selectedContinue") ? "Continue\n" : "New Game\n";
                 BackupMenuData.backupMenuButton.SetActive(__instance.GetPrivateField<bool>("selectedContinue"));
             }
         }
