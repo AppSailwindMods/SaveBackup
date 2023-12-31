@@ -20,6 +20,9 @@ namespace SaveBackup
 
         public static GameObject backupListUI;
 
+        public static GameObject saveSlotUILabel;
+
+        public static TextMesh saveSlotUILabelText;
         public static void Setup()
         {
             SetupButton();
@@ -88,6 +91,17 @@ namespace SaveBackup
                 var saveSlotUI = startMenu.GetPrivateField<GameObject>("saveSlotUI");
                 if (saveSlotUI)
                 {
+                    // Create UI label
+                    var saveSlotUIText = saveSlotUI.transform.GetChildByName("text").gameObject;
+                    if (saveSlotUIText)
+                    {
+                        saveSlotUILabel = GameObject.Instantiate(saveSlotUIText, saveSlotUIText.transform.position, saveSlotUIText.transform.rotation, saveSlotUI.transform);
+                        saveSlotUILabel.name = "label text";
+                        saveSlotUILabelText = saveSlotUILabel.GetComponent<TextMesh>();
+                        saveSlotUILabelText.fontSize = 80;
+                        saveSlotUILabelText.fontStyle = FontStyle.Bold;
+                    }
+
                     // Create backup UI
                     backupSlotUI = GameObject.Instantiate(saveSlotUI.gameObject);
                     backupSlotUI.name = "backup slot ui";
@@ -98,7 +112,10 @@ namespace SaveBackup
                     backupSlotUI.AddComponent<BackupMenu>().startMenu = startMenu;
                     backupSlotUI.SetActive(false);
 
-                    foreach(var button in backupSlotUI.GetComponentsInChildren<StartMenuButton>())
+                    // Set text for label created above
+                    backupSlotUI.transform.GetChildByName("label text").GetComponent<TextMesh>().text = "Backups\n";
+
+                    foreach (var button in backupSlotUI.GetComponentsInChildren<StartMenuButton>())
                     {
                         int slot = button.GetPrivateField<int>("saveSlot");
                         StartMenuButtonType type = button.GetPrivateField<StartMenuButtonType>("type");
